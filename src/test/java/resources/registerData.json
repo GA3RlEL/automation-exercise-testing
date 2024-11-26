@@ -1,0 +1,16 @@
+
+[
+  {
+    "name": "test",
+    "email": "test12321@test.com",
+    "password": "Test123!",
+    "firstName": "Test",
+    "lastName": "Test",
+    "address": "Test street 2/3",
+    "state": "Montana",
+    "city": "Helena",
+    "zipcode": "59601",
+    "mobileNumber": "555000000",
+    "country": "United States"
+  }
+]
