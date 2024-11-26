@@ -1,10 +1,12 @@
 package com.automationexercise.tests;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import java.util.List;
+
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import com.automationexercise.models.UserData;
 import com.automationexercise.pages.AccountCreatedPage;
 import com.automationexercise.pages.AccountDeletedPage;
 import com.automationexercise.pages.LoginPage;
@@ -12,38 +14,38 @@ import com.automationexercise.pages.SignUpPage;
 import com.automationexercise.tests.testComponents.BaseTest;
 
 public class UserTests extends BaseTest {
-  @Test
-  public void test_registerUser() {
-    String name = "test";
-    String email = "test12321@test.com";
-    String password = "Test123!";
-    String firstName = "Test";
-    String lastName = "Test";
-    String address = "Test street 2/3";
-    String state = "Montana";
-    String city = "Helena";
-    String zipcode = "59601";
-    String mobileNumber = "555000000";
-    String country = "United States";
-
+  @Test(dataProvider = "userDataProvider")
+  public void test_registerUser(UserData userData) {
     LoginPage loginPage = goToLoginPage();
     String newUserText = loginPage.getNewUserText();
     Assert.assertEquals(newUserText.split("!")[0] + "!", "New User Signup!");
-    SignUpPage signUpPage = loginPage.enterNameAndEmail(name, email);
-    signUpPage.enterAccountInformation(password, "28", 5, "2002");
-    signUpPage.enterAddressInformation(firstName, lastName, address, country, state, city, zipcode, mobileNumber);
+    SignUpPage signUpPage = loginPage.enterNameAndEmail(userData.name, userData.email);
+    signUpPage.enterAccountInformation(userData.password, "28", 5, "2002");
+    signUpPage.enterAddressInformation(userData.firstName, userData.lastName, userData.address, userData.country,
+        userData.state, userData.city, userData.zipcode, userData.mobileNumber);
     AccountCreatedPage accountCreated = signUpPage.registerAccount();
 
     String accountCreatedText = accountCreated.getAccountCreatedConfirmation();
     Assert.assertEquals(accountCreatedText, "ACCOUNT CREATED!");
 
     String userNameVisible = accountCreated.getUsername();
-    Assert.assertEquals(userNameVisible, ("Logged in as " + name));
+    Assert.assertEquals(userNameVisible, ("Logged in as " + userData.name));
 
     AccountDeletedPage accountDeletedPage = accountCreated.deleteAccount();
     String accountDeletionText = accountDeletedPage.getAccountDeletionConfirmation();
     Assert.assertEquals(accountDeletionText, "ACCOUNT DELETED!");
     ;
+  }
+
+  @DataProvider(name = "userDataProvider")
+  public Object[][] getData() {
+    List<UserData> users = getJsonData(
+        System.getProperty("user.dir") + "\\src\\test\\java\\resources\\registerData.json");
+    Object[][] data = new Object[users.size()][1];
+    for (int i = 0; i < users.size(); i++) {
+      data[i][0] = users.get(i);
+    }
+    return data;
   }
 
 }

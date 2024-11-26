@@ -1,8 +1,10 @@
 package com.automationexercise.tests.testComponents;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.List;
 import java.util.Properties;
 
 import org.openqa.selenium.WebDriver;
@@ -12,8 +14,13 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
+import com.automationexercise.models.UserData;
 import com.automationexercise.pages.BasePage;
 import com.automationexercise.pages.LoginPage;
+import com.fasterxml.jackson.core.exc.StreamReadException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DatabindException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class BaseTest {
 
@@ -46,6 +53,18 @@ public class BaseTest {
     driver.manage().window().maximize();
 
     return driver;
+  }
+
+  public List<UserData> getJsonData(String filePath) {
+    ObjectMapper objectMapper = new ObjectMapper();
+    try {
+      return objectMapper.readValue(new File(filePath), new TypeReference<List<UserData>>() {
+
+      });
+    } catch (IOException e) {
+      throw new RuntimeException("Failed to load test data from JSON file:" + filePath, e);
+    }
+
   }
 
   @BeforeMethod
