@@ -14,12 +14,13 @@ import com.automationexercise.pages.SignUpPage;
 import com.automationexercise.tests.testComponents.BaseTest;
 
 public class UserTests extends BaseTest {
+
   @Test(dataProvider = "userDataProvider")
   public void test_registerUser(UserData userData) {
     LoginPage loginPage = goToLoginPage();
     String newUserText = loginPage.getNewUserText();
     Assert.assertEquals(newUserText.split("!")[0] + "!", "New User Signup!");
-    SignUpPage signUpPage = loginPage.enterNameAndEmail(userData.name, userData.email);
+    SignUpPage signUpPage = loginPage.enterNameAndEmailSignUp(userData.name, userData.email);
     signUpPage.enterAccountInformation(userData.password, "28", 5, "2002");
     signUpPage.enterAddressInformation(userData.firstName, userData.lastName, userData.address, userData.country,
         userData.state, userData.city, userData.zipcode, userData.mobileNumber);
@@ -34,7 +35,18 @@ public class UserTests extends BaseTest {
     AccountDeletedPage accountDeletedPage = accountCreated.deleteAccount();
     String accountDeletionText = accountDeletedPage.getAccountDeletionConfirmation();
     Assert.assertEquals(accountDeletionText, "ACCOUNT DELETED!");
-    ;
+  }
+
+  @Test
+  public void test_loginCorrectCred() {
+    String email = "test121311@test.com";
+    String password = "Test123!";
+    String name = "test";
+
+    LoginPage loginPage = goToLoginPage();
+    loginPage.enterNameAndEmailLogin(password, email);
+    String username = loginPage.getUsername();
+    Assert.assertEquals(username, ("Logged in as " + name));
   }
 
   @DataProvider(name = "userDataProvider")

@@ -17,9 +17,7 @@ import org.testng.annotations.BeforeMethod;
 import com.automationexercise.models.UserData;
 import com.automationexercise.pages.BasePage;
 import com.automationexercise.pages.LoginPage;
-import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class BaseTest {
