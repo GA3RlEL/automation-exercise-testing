@@ -21,6 +21,8 @@ public class BasePage {
   WebElement user;
   @FindBy(css = "a[href*='/delete_account']")
   WebElement deleteAccountButton;
+  @FindBy(css = "a[href*='/logout']")
+  WebElement logoutButton;
 
   public LoginPage goToLoginPage() {
     cta.click();
@@ -35,6 +37,14 @@ public class BasePage {
   public AccountDeletedPage deleteAccount() {
     deleteAccountButton.click();
     return new AccountDeletedPage(driver);
+  }
+
+  public void logoutAccount() {
+    logoutButton.click();
+  }
+
+  public String getActuallPage() {
+    return driver.getCurrentUrl();
   }
 
 }
