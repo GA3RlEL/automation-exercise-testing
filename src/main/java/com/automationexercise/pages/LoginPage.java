@@ -35,7 +35,10 @@ public class LoginPage extends BasePage {
   @FindBy(css = ".login-form h2")
   WebElement loginHeading;
 
-  public String getNewUserText() {
+  @FindBy(css = "form[action*='/signup'] p")
+  WebElement errorSignupMessage;
+
+  public String getNewUserHeading() {
     return newUserText.getText();
   }
 
@@ -46,14 +49,24 @@ public class LoginPage extends BasePage {
     return new SignUpPage(driver);
   }
 
+  public void enterNameAndEmailSignUpVoid(String name, String email) {
+    nameInputSignUp.sendKeys(name);
+    emailInputSignUp.sendKeys(email);
+    signUpButton.click();
+  }
+
   public void enterNameAndEmailLogin(String password, String email) {
     passwordInputLogin.sendKeys(password);
     emailInputLogin.sendKeys(email);
     loginButton.click();
   }
 
-  public String getErrorMessage() {
+  public String getLoginErrorMessage() {
     return errorLoginMessage.getText();
+  }
+
+  public String getSignupErrorMessage() {
+    return errorSignupMessage.getText();
   }
 
   public String getLoginHeading() {

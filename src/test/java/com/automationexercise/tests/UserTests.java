@@ -18,7 +18,7 @@ public class UserTests extends BaseTest {
   @Test(dataProvider = "userDataProvider")
   public void test_registerUser(UserData userData) {
     LoginPage loginPage = goToLoginPage();
-    String newUserText = loginPage.getNewUserText();
+    String newUserText = loginPage.getNewUserHeading();
     Assert.assertEquals(newUserText.split("!")[0] + "!", "New User Signup!");
     SignUpPage signUpPage = loginPage.enterNameAndEmailSignUp(userData.name, userData.email);
     signUpPage.enterAccountInformation(userData.password, "28", 5, "2002");
@@ -73,8 +73,21 @@ public class UserTests extends BaseTest {
     loginPage.enterNameAndEmailLogin(password, email);
     String loginHeading = loginPage.getLoginHeading();
     Assert.assertEquals(loginHeading, "Login to your account");
-    String errorMessage = loginPage.getErrorMessage();
+    String errorMessage = loginPage.getLoginErrorMessage();
     Assert.assertEquals(errorMessage, "Your email or password is incorrect!");
+  }
+
+  @Test
+  public void test_resigserWithExistingEmail() {
+    String email = "test121311@test.com";
+    String name = "test";
+
+    LoginPage loginPage = goToLoginPage();
+    String signupHeading = loginPage.getNewUserHeading();
+    Assert.assertEquals(signupHeading, "New User Signup!");
+    loginPage.enterNameAndEmailSignUpVoid(name, email);
+    String errorMessage = loginPage.getSignupErrorMessage();
+    Assert.assertEquals(errorMessage, "Email Address already exist!");
   }
 
   @DataProvider(name = "userDataProvider")
