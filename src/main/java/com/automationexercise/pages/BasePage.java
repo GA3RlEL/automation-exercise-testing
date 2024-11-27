@@ -23,11 +23,19 @@ public class BasePage {
   WebElement deleteAccountButton;
   @FindBy(css = "a[href*='/logout']")
   WebElement logoutButton;
+  @FindBy(css = "a[href*='/contact_us']")
+  WebElement contactUsButton;
 
   public LoginPage goToLoginPage() {
     cta.click();
     loginMenuButton.click();
     return new LoginPage(driver);
+  }
+
+  public ContactUsPage goToContactUsPage() {
+    cta.click();
+    contactUsButton.click();
+    return new ContactUsPage(driver);
   }
 
   public String getUsername() {
