@@ -44,9 +44,23 @@ public class UserTests extends BaseTest {
     String name = "test";
 
     LoginPage loginPage = goToLoginPage();
+    String loginHeading = loginPage.getLoginHeading();
+    Assert.assertEquals(loginHeading, "Login to your account");
     loginPage.enterNameAndEmailLogin(password, email);
     String username = loginPage.getUsername();
     Assert.assertEquals(username, ("Logged in as " + name));
+  }
+
+  @Test
+  public void test_loginIncorrectCred() {
+    String email = "test121311@test.com";
+    String password = "incorrectPassword";
+    LoginPage loginPage = goToLoginPage();
+    loginPage.enterNameAndEmailLogin(password, email);
+    String loginHeading = loginPage.getLoginHeading();
+    Assert.assertEquals(loginHeading, "Login to your account");
+    String errorMessage = loginPage.getErrorMessage();
+    Assert.assertEquals(errorMessage, "Your email or password is incorrect!");
   }
 
   @DataProvider(name = "userDataProvider")

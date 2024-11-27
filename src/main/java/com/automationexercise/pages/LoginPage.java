@@ -30,6 +30,10 @@ public class LoginPage extends BasePage {
   WebElement emailInputLogin;
   @FindBy(css = "button[data-qa='login-button']")
   WebElement loginButton;
+  @FindBy(css = "form[action*='/login'] p")
+  WebElement errorLoginMessage;
+  @FindBy(css = ".login-form h2")
+  WebElement loginHeading;
 
   public String getNewUserText() {
     return newUserText.getText();
@@ -46,6 +50,14 @@ public class LoginPage extends BasePage {
     passwordInputLogin.sendKeys(password);
     emailInputLogin.sendKeys(email);
     loginButton.click();
+  }
+
+  public String getErrorMessage() {
+    return errorLoginMessage.getText();
+  }
+
+  public String getLoginHeading() {
+    return loginHeading.getText();
   }
 
 }
