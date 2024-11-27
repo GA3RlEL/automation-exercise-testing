@@ -37,6 +37,20 @@ public class UserTests extends BaseTest {
     Assert.assertEquals(accountDeletionText, "ACCOUNT DELETED!");
   }
 
+  @Test()
+  public void test_logoutUser() {
+    String email = "test121311@test.com";
+    String password = "Test123!";
+
+    LoginPage loginPage = goToLoginPage();
+    String loginHeading = loginPage.getLoginHeading();
+    Assert.assertEquals(loginHeading, "Login to your account");
+    loginPage.enterNameAndEmailLogin(password, email);
+    loginPage.logoutAccount();
+    String pageTitle = loginPage.getActuallPage();
+    Assert.assertEquals(pageTitle, "https://automationexercise.com/login");
+  }
+
   @Test
   public void test_loginCorrectCred() {
     String email = "test121311@test.com";
