@@ -16,6 +16,7 @@ import org.testng.annotations.BeforeMethod;
 
 import com.automationexercise.models.UserData;
 import com.automationexercise.pages.BasePage;
+import com.automationexercise.pages.ContactUsPage;
 import com.automationexercise.pages.LoginPage;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -75,6 +76,12 @@ public class BaseTest {
     basePage = new BasePage(driver);
     LoginPage loginPage = basePage.goToLoginPage();
     return loginPage;
+  }
+
+  public ContactUsPage goToContactUsPage() {
+    basePage = new BasePage(driver);
+    ContactUsPage contactUsPage = basePage.goToContactUsPage();
+    return contactUsPage;
   }
 
   @AfterMethod
