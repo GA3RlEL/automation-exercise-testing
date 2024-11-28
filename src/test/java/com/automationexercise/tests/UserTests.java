@@ -47,8 +47,8 @@ public class UserTests extends BaseTest {
     Assert.assertEquals(loginHeading, "Login to your account");
     loginPage.enterNameAndEmailLogin(password, email);
     loginPage.logoutAccount();
-    String pageTitle = loginPage.getActuallPage();
-    Assert.assertEquals(pageTitle, "https://automationexercise.com/login");
+    String url = loginPage.getActuallPage();
+    Assert.assertEquals(url, "https://automationexercise.com/login");
   }
 
   @Test

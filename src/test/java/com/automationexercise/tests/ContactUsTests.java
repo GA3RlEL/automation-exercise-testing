@@ -23,7 +23,8 @@ public class ContactUsTests extends BaseTest {
     contactUsPage.acceptPopup();
     String successMessage = contactUsPage.getSuccessMessage();
     Assert.assertEquals(successMessage, "Success! Your details have been submitted successfully.");
-    String url = contactUsPage.backToMainPage();
+    contactUsPage.backToMainPage();
+    String url = contactUsPage.getActuallPage();
     Assert.assertEquals(url, "https://automationexercise.com/");
   }
 

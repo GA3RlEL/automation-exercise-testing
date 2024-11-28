@@ -55,9 +55,8 @@ public class ContactUsPage extends BasePage {
     return successMessage.getText();
   }
 
-  public String backToMainPage() {
+  public void backToMainPage() {
     homeButton.click();
-    return driver.getCurrentUrl();
   }
 
 }
