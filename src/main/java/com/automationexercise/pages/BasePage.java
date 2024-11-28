@@ -5,10 +5,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class BasePage {
+import helpers.AbstractComponents;
+
+public class BasePage extends AbstractComponents {
   protected WebDriver driver;
 
   public BasePage(WebDriver driver) {
+    super(driver);
     this.driver = driver;
     PageFactory.initElements(driver, this);
   }
@@ -25,15 +28,30 @@ public class BasePage {
   WebElement logoutButton;
   @FindBy(css = "a[href*='/contact_us']")
   WebElement contactUsButton;
+  @FindBy(css = ".nav a[href*='/test_cases']")
+  WebElement testCasesButton;
+  @FindBy(css = "a[href*='/products']")
+  WebElement productsButton;
+
+  public void clickCta() {
+    cta.click();
+  }
+
+  public ProductsPage goToProductsPage() {
+    productsButton.click();
+    return new ProductsPage(driver);
+  }
 
   public LoginPage goToLoginPage() {
-    cta.click();
     loginMenuButton.click();
     return new LoginPage(driver);
   }
 
+  public void goToTestCasesPage() {
+    testCasesButton.click();
+  }
+
   public ContactUsPage goToContactUsPage() {
-    cta.click();
     contactUsButton.click();
     return new ContactUsPage(driver);
   }

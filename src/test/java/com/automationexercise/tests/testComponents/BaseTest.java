@@ -18,6 +18,7 @@ import com.automationexercise.models.UserData;
 import com.automationexercise.pages.BasePage;
 import com.automationexercise.pages.ContactUsPage;
 import com.automationexercise.pages.LoginPage;
+import com.automationexercise.pages.ProductsPage;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -70,16 +71,32 @@ public class BaseTest {
   public void launchBrowser() throws IOException {
     driver = initializeDriver();
     driver.get("https://automationexercise.com/");
+
   }
 
   public LoginPage goToLoginPage() {
     basePage = new BasePage(driver);
+    basePage.clickCta();
     LoginPage loginPage = basePage.goToLoginPage();
     return loginPage;
   }
 
+  public ProductsPage goToProductsPage() {
+    basePage = new BasePage(driver);
+    basePage.clickCta();
+    ProductsPage productsPage = basePage.goToProductsPage();
+    return productsPage;
+  }
+
+  public void goToTestCasePage() {
+    basePage = new BasePage(driver);
+    basePage.clickCta();
+    basePage.goToTestCasesPage();
+  }
+
   public ContactUsPage goToContactUsPage() {
     basePage = new BasePage(driver);
+    basePage.clickCta();
     ContactUsPage contactUsPage = basePage.goToContactUsPage();
     return contactUsPage;
   }
